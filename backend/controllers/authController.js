@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 // ── Helper: sign a customer JWT ───────────────────────────────────────────────
 const signToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
+  jwt.sign({ id }, process.env.JWT_SECRET || "magic_momos_jwt_secret_key_2026_cloud_kitchen", {
     expiresIn: process.env.JWT_EXPIRES_IN || "7d",
   });
 

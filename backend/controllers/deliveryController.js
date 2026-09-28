@@ -5,7 +5,7 @@ const DeliveryCredential = require("../models/DeliveryCredential");
 const ACTIVE_STATUSES = ["Preparing", "Out for Delivery"];
 
 const signDeliveryToken = (deliveryBoy) =>
-  jwt.sign({ id: deliveryBoy._id, role: "delivery" }, process.env.JWT_DELIVERY_SECRET, {
+  jwt.sign({ id: deliveryBoy._id, role: "delivery" }, process.env.JWT_DELIVERY_SECRET || "magic_momos_delivery_jwt_secret_key_2026", {
     expiresIn: process.env.JWT_DELIVERY_EXPIRES_IN || "12h",
   });
 

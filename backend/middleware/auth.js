@@ -18,6 +18,10 @@ const extractToken = (req) => {
   return null;
 };
 
+const JWT_SECRET = process.env.JWT_SECRET || "magic_momos_jwt_secret_key_2026_cloud_kitchen";
+const JWT_ADMIN_SECRET = process.env.JWT_ADMIN_SECRET || "magic_momos_admin_jwt_secret_key_2026";
+const JWT_DELIVERY_SECRET = process.env.JWT_DELIVERY_SECRET || "magic_momos_delivery_jwt_secret_key_2026";
+
 // ── Customer middleware ───────────────────────────────────────────────────────
 const protect = async (req, res, next) => {
   const token = extractToken(req);
@@ -26,7 +30,7 @@ const protect = async (req, res, next) => {
     return res.status(401).json({ success: false, message: "Not authenticated. Please log in." });
   }
 
-  const decoded = verifyToken(token, process.env.JWT_SECRET);
+  const decoded = verifyToken(token, process.env.JWT_SECRET || JWT_SECRET);
   if (!decoded) {
     return res.status(401).json({ success: false, message: "Token is invalid or expired." });
   }
@@ -48,7 +52,7 @@ const adminProtect = async (req, res, next) => {
     return res.status(401).json({ success: false, message: "Admin access required." });
   }
 
-  const decoded = verifyToken(token, process.env.JWT_ADMIN_SECRET);
+  const decoded = verifyToken(token, process.env.JWT_ADMIN_SECRET || JWT_ADMIN_SECRET);
   if (!decoded) {
     return res.status(401).json({ success: false, message: "Admin token is invalid or expired." });
   }
@@ -72,7 +76,7 @@ const deliveryProtect = async (req, res, next) => {
     return res.status(401).json({ success: false, message: "Delivery access required." });
   }
 
-  const decoded = verifyToken(token, process.env.JWT_DELIVERY_SECRET);
+  const decoded = verifyToken(token, process.env.JWT_DELIVERY_SECRET || JWT_DELIVERY_SECRET);
   if (!decoded || decoded.role !== "delivery" || !decoded.id) {
     return res.status(401).json({ success: false, message: "Delivery token is invalid or expired." });
   }
@@ -94,7 +98,7 @@ const optionalAuth = async (req, res, next) => {
   const token = extractToken(req);
   if (!token) return next();
 
-  const decoded = verifyToken(token, process.env.JWT_SECRET);
+  const decoded = verifyToken(token, process.env.JWT_SECRET || JWT_SECRET);
   if (!decoded) return next();
 
   const user = await User.findById(decoded.id).select("-password");

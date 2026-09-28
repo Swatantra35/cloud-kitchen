@@ -20,7 +20,7 @@ const {
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max:      10,
+  max:      process.env.NODE_ENV === "production" ? 10 : 1000,
   message:  { success: false, message: "Too many login attempts. Try again in 15 minutes." },
 });
 

@@ -2,7 +2,7 @@ const jwt   = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 
 const signAdminToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_ADMIN_SECRET, {
+  jwt.sign({ id }, process.env.JWT_ADMIN_SECRET || "magic_momos_admin_jwt_secret_key_2026", {
     expiresIn: process.env.JWT_ADMIN_EXPIRES_IN || "1d",
   });
 

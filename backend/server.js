@@ -29,16 +29,27 @@ const app = express();
 app.use(helmet());
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+const allowedOrigins = (
+  process.env.CLIENT_URL ||
+  "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:3000,http://127.0.0.1:3000"
+)
   .split(",")
   .map((o) => o.trim());
 
 app.use(
   cors({
     origin: (origin, cb) => {
-      // Allow requests with no origin (e.g. mobile apps, Postman, curl)
+      // Allow requests with no origin (e.g. mobile apps, Postman, curl, same-origin)
       if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error(`CORS: origin ${origin} not allowed`));
+
+      // In development, allow any localhost or 127.0.0.1 origin
+      if (process.env.NODE_ENV !== "production") {
+        if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+          return cb(null, true);
+        }
+      }
+
+      cb(null, false);
     },
     credentials: true,
     methods:     ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],

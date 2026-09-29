@@ -34,7 +34,7 @@ export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const { navigate, settings } = useNav();
 
-  const phone   = settings?.phone   || "+91 73920 62928";
+  const phone   = settings?.phone   || "+91 9936683577";
   const email   = settings?.email   || "hello@cloudkitchen.in";
   const address = settings?.address || "Gyan Mandir Chowk, Ekta Vihar, New Delhi – 110044";
   const bizName = settings?.businessName || "Cloud Kitchen";
@@ -219,7 +219,7 @@ export default function Footer() {
               Made with ❤️ in Delhi
             </p>
             <p className="font-body text-xs text-mm-muted/60 text-center sm:text-left">
-              Proprietor: Aditya Gupta
+              Proprietor: Swatantra Pratap Singh 
             </p>
           </div>
 

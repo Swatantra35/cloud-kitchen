@@ -336,9 +336,9 @@ export default function Header({ cartCount = 0, onCartOpen }) {
                   </button>
                 </>
               ) : (
-                <a href="tel:+917392062928"
+                <a href="tel:+919936683577"
                   className="text-mm-cream/50 text-sm font-body flex items-center gap-2">
-                  <Phone size={14} /> +91 73920 62928
+                  <Phone size={14} /> +91 9936683577
                 </a>
               )}
               <button

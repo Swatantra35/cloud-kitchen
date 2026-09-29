@@ -133,10 +133,10 @@ export default function Header({ cartCount = 0, onCartOpen }) {
 
           {/* desktop right CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="tel:+917392062928"
+            <a href="tel:+919936683577"
               className="flex items-center gap-1.5 text-mm-cream/50 hover:text-mm-gold text-sm font-body transition-colors">
               <Phone size={14} />
-              <span>+91 73920 62928</span>
+              <span>+91 99366 83577</span>
             </a>
 
             {/* cart button */}
